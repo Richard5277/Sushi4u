@@ -47,13 +47,6 @@ export class AddSushiForm extends Component {
 			category : event.target.value
 		})
 
-		console.log("+++++++++++++  state   ++++++++++++")
-		console.log("====== name ====== >> " , this.state.name)
-		console.log("====== price ====== >> " , this.state.price)
-		console.log("====== stock ====== >> " , this.state.stock)
-		console.log("====== category ====== >> " , this.state.category)
-		console.log("+++++++++++++++++++++++++++++++++++")
-
 		axios.post('http://localhost:8080/addSushi', {
 				name: this.state.name,
 				price: this.state.price,

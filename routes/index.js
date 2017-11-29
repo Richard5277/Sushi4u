@@ -9,12 +9,12 @@ module.exports = function(app){
 
 app.get('/', function(req, res) {
   console.log("U got it");
-  sushiModelimpl.findAllSushi(function(err, result) {
+  sushiModelimpl.findAllSushi(function(err, results) {
     if(err) {
       console.log('ERR: can not get sushi data >> ' + err)
     } else {
-      console.log('Successfully retrived data from sushi database >> ' + result)
-      res.json(JSON.stringify(result))
+      console.log('Successfully retrived data from sushi database >> ' + results)
+      res.json(results)
     }
   })
 })
