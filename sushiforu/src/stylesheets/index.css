@@ -1,0 +1,50 @@
+
+html,
+body,
+div#react-container,
+div.app {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+h1, label {
+  margin: 0
+}
+
+div.app {
+  margin-top: 2.2rem;
+ background-size: cover;
+ background-position: center;
+}
+
+div.whoops-404 {
+  background-color: white;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+nav.menu {
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right:0;
+  /*width: calc(100% - 1em);*/
+  font-size: 1.6em;
+  padding: 0.2rem;
+  display: flex;
+  justify-content: space-around;
+  a {
+    color: blue;
+  };
+  border-bottom: 1px solid black;
+}
+
+.selected {
+	
+}

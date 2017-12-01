@@ -2,6 +2,7 @@
 
 import React, { Component}  from 'react';
 import axios from 'axios'
+import '../stylesheets/index.css'
 
 export class SushiMenu extends Component {
 
@@ -18,7 +19,7 @@ export class SushiMenu extends Component {
 		var self = this;
 		axios.get('http://localhost:8080/')
 		 .then(function (response) {
-		   console.log(response.data);
+		   // console.log(response.data);
 		   self.setState({allSushis: response.data})
 		 })
 		.catch(function (error) {
@@ -35,8 +36,9 @@ export class SushiMenu extends Component {
 				{this.state.allSushis.map(sushi => {
 					return (
 						<div className="sushiCell" key={sushi._id}>
-							<h1>{sushi.name}</h1>
-							<h1>{sushi.price}</h1>
+							<h1>Name: {sushi.name}</h1>
+							<h1>Price: {sushi.price}</h1>
+							<h2>Category: {sushi.category}</h2>
 						</div>
 					)
 				})}
@@ -46,3 +48,10 @@ export class SushiMenu extends Component {
 	}
 
 }
+
+
+
+
+
+
+

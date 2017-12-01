@@ -2,6 +2,8 @@
 
 import React, { Component}  from 'react';
 import axios from 'axios'
+import '../stylesheets/index.css'
+import '../stylesheets/App.css'
 
 export class AddSushiForm extends Component {
 
