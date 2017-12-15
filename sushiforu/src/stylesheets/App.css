@@ -37,3 +37,54 @@
 .addNewSushiButton {
   margin-left: 55px; 
 }
+
+.sushiCell {
+  display: inline-block;
+  background-color: lightgray;
+  float: left;
+}
+
+.clearFloat {
+  clear:left;
+}
+
+.leftMenu {
+  /*background-color: darkturquoise;*/
+  width: 60%;
+  display: inline-block;
+}
+.rightMenu {
+  float: right;
+  /*background-color: deepskyblue;*/
+  display: inline-block;
+}
+
+.billHide {
+  display: none;
+}
+.billShow {
+  
+}
+
+.customerInfo {
+  background-color: yellow;
+}
+
+.emailBillHide {
+  display: none;
+}
+
+.emailBillShow {
+
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -34,20 +34,3 @@ http.listen(8080, function(){
 });
 
 
-// io.on('connection', function(socket){
-//     console.log('A user connected');
-
-//     socket.on('disconnect', function() {
-//         console.log('user disconnected');
-//     });
-
-//     messagesModelimpl.findAllMessages(function(err, result){
-//         if(err){console.log("Failed to retraving all messages" + err.message);}
-//         else {
-//             io.emit("allMessages", result);
-//         }
-//     });
-
-//     // socket.on('')
-// });
-

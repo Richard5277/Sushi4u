@@ -12,10 +12,14 @@ export const Menu = () =>
 		<Link to="/" activeclassname="selected">
 			<HomeIcon />
 		</Link>
+
 		<Link to="/currentorder" activeclassname="selected">
 			<ListDaysIcon />
 		</Link>
+		
 		<Link to="/addsushi" activeclassname="selected">
 			<AddDayIcon />
 		</Link>
 	</nav>
+
+

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { AddSushiForm } from './AddSushiForm'
 import { SushiMenu } from './SushiMenu'
 import { Menu } from './Menu'
+import { LoginPage } from './LoginPage'
 import { CurrentOrder } from './CurrentOrder'
 
 export class App extends Component {
@@ -27,5 +28,6 @@ export class App extends Component {
   			</div>
   		)
   	}
+
 
 }

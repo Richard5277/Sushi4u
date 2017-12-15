@@ -6,17 +6,21 @@ var Schema = mongoose.Schema
 
 function getCustomerSchema() {
 	return new Schema({
-		tableNumber: { type: String },
-		checkInTime: { type: String },
-		orders: { type: [String] },
-		totalBill: { type: String }
+		customerName: String,
+		customerEmail: String,
+		tableNumber: String ,
+		checkInTime: String,
+		totalBill: String ,
+		orders: [{
+			name: String, 
+			quantity: String
+		}]
 	})
 }
 
 module.exports = {
 	getCustomerSchema: getCustomerSchema
 }
-
 
 
 
