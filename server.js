@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost:27017/sushi4u", {useMongoClient: true})
+mongoose.connect("mongodb://52.228.45.130:27017/sushi4u", {useMongoClient: true})
 
 app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
