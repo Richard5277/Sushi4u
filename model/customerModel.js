@@ -8,12 +8,12 @@ function getCustomerSchema() {
 	return new Schema({
 		customerName: String,
 		customerEmail: String,
-		tableNumber: String ,
+		tableNumber: Number ,
 		checkInTime: String,
-		totalBill: String ,
+		totalBill: Number ,
 		orders: [{
 			name: String, 
-			quantity: String
+			quantity: Number
 		}]
 	})
 }

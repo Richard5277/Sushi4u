@@ -6,13 +6,15 @@ import '../stylesheets/index.css'
 
 export class Counter extends Component {
 	constructor(props) {
-		super(props);
-		this.state = {
-			count : 0
-		};
+		super(props)
+		this.state = {}
 
 		this.incrementCount = this.incrementCount.bind(this)
 		this.decrementCount = this.decrementCount.bind(this)
+	}
+
+	componentWillMount() {
+		this.setState({ count : this.props.previousOrder })
 	}
 
 	incrementCount(){

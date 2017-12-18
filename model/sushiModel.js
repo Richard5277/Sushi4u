@@ -7,8 +7,8 @@ var Schema = mongoose.Schema
 function getSushiSchema() {
 	return new Schema({
 		name: { type: String },
-		price: { type: String },
-		stock: { type: String },
+		price: { type: Number },
+		stock: { type: Number },
 		category: { type: String }
 	})
 }

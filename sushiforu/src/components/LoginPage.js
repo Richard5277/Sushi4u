@@ -1,7 +1,7 @@
 //
 //
 
-import React, { Component}  from 'react';
+import React, { Component}  from 'react'
 import axios from 'axios'
 
 export class LoginPage extends Component {
@@ -9,7 +9,8 @@ export class LoginPage extends Component {
     super(props);
     this.state = {
       name: '',
-      email:''
+      email:'',
+      customerData: {}
     }
 
     this.handleChangeName = this.handleChangeName.bind(this)
@@ -26,38 +27,37 @@ export class LoginPage extends Component {
   }  
 
   handleLogin(event) {
-    this.setState({
-      name: '',
-      email:''
-    })
-    event.preventDefault()
-    // prop to parent
-    this.props.onLogin(this.state.name, this.state.email)
-
+    
     // server GET request
-    axios.get('http://localhost:8080/customer'+this.state.email)
+    var self = this
+    axios.get('http://localhost:8080/customer'+self.state.email)
       .then(function (response) {
-        console.log("👀 👀 👀 fetched customer data >> ", response)
+        self.props.handleLogin(self.state.name, self.state.email, response.data[0])  
       })
       .catch(function (error) {
         console.log(error);
       })
+
   }
 
   render() {
     return (
       <div>
       <h1>Welcome to Sushi4u</h1>
-      <form onSubmit={this.handleLogin}>
-        <label>
-          Name:
-          <input type="text" value={this.state.value} onChange={this.handleChangeName} />
-          Email:
-            <input type="text" name="email" onChange={this.handleChangeEmail}/>
-        </label>
-        <input type="submit" value="Login" />
-      </form>
+      <label>
+        Name:
+        <input type="text" value={this.state.value} onChange={this.handleChangeName} />
+        Email:
+          <input type="text" name="email" onChange={this.handleChangeEmail}/>
+      </label>
+      <button onClick={this.handleLogin}>LOGIN</button>
       </div>
     )
   }
 }
+
+
+
+
+
+
