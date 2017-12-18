@@ -49,7 +49,7 @@ export class AddSushiForm extends Component {
 			category : event.target.value
 		})
 
-		axios.post('http://localhost:8080/addSushi', {
+		axios.post(config.ONLINE_URL + 'addSushi', {
 				name: this.state.name,
 				price: this.state.price,
 				stock: this.state.stock,

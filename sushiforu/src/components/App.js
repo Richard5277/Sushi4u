@@ -18,11 +18,12 @@ export class App extends Component {
 	  this.handleLogin = this.handleLogin.bind(this) 
 	}
 
-	handleLogin = (name, email, previousOrder) => {
+	handleLogin = (name, email, tableNumber, previousOrder) => {
 		this.setState({
       		isLoggedIn: true,
       		name: name,
       		email: email,
+          tableNumber: tableNumber,
       		previousOrder: previousOrder,
       		key: Math.random()
     	})
@@ -39,7 +40,11 @@ export class App extends Component {
   				<Menu />
   				{
   					(this.props.location.pathname === "/") ?
-  					<SushiMenu name={this.state.name} email={this.state.email} key={this.state.key} previousOrder={this.state.previousOrder} /> :
+  					<SushiMenu name={this.state.name} 
+                       email={this.state.email}
+                       tableNumber={this.state.tableNumber}
+                       key={this.state.key} 
+                       previousOrder={this.state.previousOrder} /> :
   					<AddSushiForm />
   				}
   				</div>
@@ -48,28 +53,6 @@ export class App extends Component {
   	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

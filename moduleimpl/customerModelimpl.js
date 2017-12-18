@@ -7,6 +7,7 @@ var customerDatabase = require('../database/customerDatabase')
 function createNewCustomer(customerObject, callback){
     
     customerDatabase.createNewCustomer(customerObject, function(err, result) {
+        
     	if(err) {
     		callback(true, null)
     	} else {
@@ -25,10 +26,21 @@ function fetchCustomerDataByEmail(email, callback) {
 	})
 }
 
+function updateCustomerOrder (email, newOrder, callback) {
+    customerDatabase.updateCustomerOrder(email, newOrder, function(err, result) {
+        if(err) {
+            callback(true, null)
+        } else {
+            callback(false, result)
+        }
+    })
+}
+
 module.exports =  {
 
     createNewCustomer: createNewCustomer,
-    fetchCustomerDataByEmail: fetchCustomerDataByEmail
+    fetchCustomerDataByEmail: fetchCustomerDataByEmail,
+    updateCustomerOrder: updateCustomerOrder
 
 };
 

@@ -27,17 +27,29 @@ function fetchCustomerDataByEmail(email, callback) {
             callback(true, null)
         }
         else {
-            console.log("database/customerDatabase.js --- Fetching for target customer result: " + result);
             callback(false, result)
         }
     })
+}
+
+function updateCustomerOrder (email, newOrder, callback) {
+    var query = { 'customerEmail' : email }
+    customerModel.findOneAndUpdate(query, newOrder, {upsert:true}, function(err, result){
+        if (err) {
+            console.log(err)
+            callback(true, null)
+        } else {
+            callback(false, result)
+        }
+    }) 
 }
 
 
 module.exports =  {
 
     createNewCustomer: createNewCustomer,
-    fetchCustomerDataByEmail: fetchCustomerDataByEmail
+    fetchCustomerDataByEmail: fetchCustomerDataByEmail,
+    updateCustomerOrder: updateCustomerOrder
 
 };
 
