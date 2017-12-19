@@ -189,24 +189,20 @@ render(){
 				sushi['previousOrder'] = 0
 			}
 
-						// update state value
-						// this.setState({allOrders: this.state.allOrders.concat([order])})
-						// var updatedAllOrders = update(this.state.allOrders, { $push: [order] })
-
-						return (
-							<div className="leftMenu" key={sushi._id}>
-							<div className="sushiCell">
-							<h1>Name: {sushi.name}</h1>
-							<h1>Price: {sushi.price}</h1>
-							<h2>Category: {sushi.category}</h2>
-							<Counter name={sushi.name}
-							onSelectOrder={this.handleOrder}
-							previousOrder={sushi.previousOrder}/>
-							</div>
-							<div className="clearFloat"></div>
-							</div>
-							)
-					})}
+			return (
+				<div className="leftMenu" key={sushi._id}>
+				<div className="sushiCell">
+				<h1>Name: {sushi.name}</h1>
+				<h1>Price: {sushi.price}</h1>
+				<h2>Category: {sushi.category}</h2>
+				<Counter name={sushi.name}
+				onSelectOrder={this.handleOrder}
+				previousOrder={sushi.previousOrder}/>
+				</div>
+				<div className="clearFloat"></div>
+				</div>
+				)
+		})}
 		</div>
 		<div className="rightMenu">
 		<div>

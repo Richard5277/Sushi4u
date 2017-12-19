@@ -1,5 +1,5 @@
 {
 	"DB_URL" : "mongodb://localhost:27017/sushiforu",
 	"DEV_SERVER_URL": "http://localhost:8080/",
-	"ONLINE_URL": "http://52.237.32.143:8080/"
+	"ONLINE_URL": "http://52.237.32.43:8080/"
 }
