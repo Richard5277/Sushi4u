@@ -69,31 +69,6 @@ module.exports = function(app){
     // send email
     console.log("=======================  new 💌 💌 💌 =============================")
 
-    var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'peter.feihong92@gmail.com',
-        pass: 'forgooglemap'
-      }
-    });
-
-    var mailOptions = {
-      from: 'peter.feihong92@gmail.com',
-      to: 'richard.dev@icloud.com',
-      subject: 'Sending Email using Node.js',
-      text: 'That was easy!',
-      html: '<b>Hello world?</b>'
-    };
-
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
-
-
   })
 
 
@@ -116,30 +91,6 @@ module.exports = function(app){
 
     // send email
     console.log("=======================  update 💌 💌 💌 =============================")
-
-    var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'peter.feihong92@gmail.com',
-        pass: 'forgooglemap'
-      }
-    });
-
-    var mailOptions = {
-      from: 'peter.feihong92@gmail.com',
-      to: 'richard.dev@icloud.com',
-      subject: 'Sending Email using Node.js',
-      text: 'That was easy!',
-      html: '<b>Hello world?</b>'
-    };
-
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
 
   })
 
