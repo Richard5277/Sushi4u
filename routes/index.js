@@ -36,8 +36,13 @@ module.exports = function(app){
    })
   })
 
-  app.get('/customer:email', function (req, res) {
+  // GET with params
+/*
+  app.get('/customer/email:email', function (req, res) {
+    console.log("👽 routes/index.js 👽 =========================== req.params >> ", req.params)
     var targetEmail = req.params.email
+    console.log("email >> ", targetEmail)
+
     customerModelimpl.fetchCustomerDataByEmail(targetEmail, function(err, results) {
       if(err) {
         console.log("❗❗❗️  API >> fetch customer data by eamil error", err)
@@ -46,7 +51,21 @@ module.exports = function(app){
       }
     })
   })
+*/
 
+  // GET with query
+  app.get('/customer', function (req, res) {
+    var targetEmail = req.query.email
+    console.log("email >> ", targetEmail)
+
+    customerModelimpl.fetchCustomerDataByEmail(targetEmail, function(err, results) {
+      if(err) {
+        console.log("❗❗❗️  API >> fetch customer data by eamil error", err)
+      } else {
+        res.json(results)
+      }
+    })
+  })
 
   app.post('/newCustomer', function(req,res) {
 
@@ -72,8 +91,8 @@ module.exports = function(app){
   })
 
 
-  app.post('/updateCustomerOrder:email', function (req, res) {
-    var email = req.params.email
+  app.post('/updateCustomerOrder', function (req, res) {
+    var email = req.query.email
     var newOrder = {
       "customerName": req.body.customerName,
       "tableNumber": req.body.tableNumber,

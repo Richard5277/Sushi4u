@@ -129,7 +129,7 @@ export class SushiMenu extends Component {
 
 			// returned customer
 			// !!! check this method
-			axios.post( config.ONLINE_URL + 'updateCustomerOrder' + this.state.customerEmail, {
+			axios.post( config.ONLINE_URL + 'updateCustomerOrder?email=' + this.state.customerEmail, {
 				customerName: this.state.customerName,
 				tableNumber: this.state.tableNumber,
 				checkInTime: new Date(),
@@ -173,7 +173,7 @@ render(){
 		{
 			(this.state.isNewCustomer) ?
 			<h2><span role="img" aria-label="Clapping Hands">👏</span>
-			Welcome To Sushi4U: {this.state.customerName} - {this.state.customerEmail}</h2> :
+			Welcome To Sushi4U: {this.state.customerName} - {this.state.customerEmail} | Table Number - {this.state.tableNumber}</h2> :
 			<h2><span role="img" aria-label="Red Heart">❤️</span>
 			Welcome Back: {this.state.customerName} - {this.state.customerEmail} | Table Number - {this.state.tableNumber}</h2>
 		}
