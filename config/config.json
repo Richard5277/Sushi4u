@@ -1,7 +1,7 @@
 {
-	"DB_URL" : "mongodb://localhost:27017/sushiforu",
+	"LOCAL_DB_URL" : "mongodb://localhost:27017/sushiforu",
 	"SUSHIFORU_SERVER_URL": "https://localhost",
 	"SUSHIFORU_SERVER_PORT":  "80",
 	"SUSHIFORU_LOCAL_PORT": "8080",
-	"ONLINE_URL": "http://52.237.32.143:8080/"
+	"ONLINE_URL": "http://52.233.44.67:8080/"
 }
