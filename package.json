@@ -12,6 +12,7 @@
     "axios": "^0.17.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "method-override": "^2.3.10",
     "mongodb": "^3.0.0-rc0",

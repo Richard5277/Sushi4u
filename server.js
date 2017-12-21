@@ -1,20 +1,53 @@
+///
+///
 
-///
-///
 var express = require('express')
 var app = express();
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose')
-var port = 8080;
 var methodOverride = require('method-override')
-var config = require('./config/config')
-var LOCAL_DB_URL = config.LOCAL_DB_URL
 
-mongoose.connect("mongodb://52.233.44.67:27017/sushi4u" || LOCAL_DB_URL, {useMongoClient: true})
+require('dotenv').config()
+
+/*
+function createConnection (dbURL, options) {
+	var db = mongoose.createConnection(dbURL, options);
+	db.on('error', function (err) {
+		if (err.message && err.message.match(/failed to connect to server .* on first connect/)) {
+			console.log(new Date(), String(err))
+			setTimeout(function () {
+				console.log("Retrying first connect...");
+				db.openUri(dbURL).catch(() => {});
+			 }, 20 * 1000);
+		} else {
+			 console.error(new Date(), String(err));
+		}
+	});
+	db.once('open', function () {
+	        console.log("Connection to db established.");
+	 });
+	return db;
+}
+createConnection("mongodb://localhost:27017/sushi4u", {useMongoClient: true})
+*/
+
+mongoose.Promise = global.Promise
+
+var options = {
+  useMongoClient: true,
+  autoIndex: false, // Don't build indexes
+  reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+  reconnectInterval: 500, // Reconnect every 500ms
+  poolSize: 10, // Maintain up to 10 socket connections
+  // If not connected, return errors immediately rather than waiting for reconnect
+  bufferMaxEntries: 0
+}
+
+mongoose.connect("mongodb://localhost:27017/sushi4u", options)
 mongoose.connection.on('error', console.error.bind(console, 'Mongo error:'))
 
-app.set('port', 8080);
+// app.set('port', 8080);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
 
@@ -32,12 +65,7 @@ app.use(function(req, res, next) {
 
 require('./routes/index.js')(app);
 
-app.listen(port)
-console.log("Listening on 8080");
-
-// var http = require('http').Server(app);
-// http.listen(8080, function(){
-//    console.log("Listening on 8080");
-// });
-
-
+ var http = require('http').Server(app);
+ http.listen(8080, function(){
+    console.log("Listening on 8080")
+ });

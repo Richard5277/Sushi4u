@@ -4,7 +4,6 @@ import React, { Component}  from 'react';
 import axios from 'axios'
 import '../stylesheets/index.css'
 import '../stylesheets/App.css'
-import config from '../config.json'
 
 export class AddSushiForm extends Component {
 
@@ -50,7 +49,7 @@ export class AddSushiForm extends Component {
 			category : event.target.value
 		})
 
-		axios.post(config.ONLINE_URL + 'addSushi', {
+		axios.post(process.env.REACT_APP_SERVER_URL + 'addSushi', {
 				name: this.state.name,
 				price: this.state.price,
 				stock: this.state.stock,

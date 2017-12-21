@@ -6,7 +6,6 @@ import axios from 'axios'
 import '../stylesheets/index.css'
 import { Counter } from './Counter'
 // import { Bill } from './Bill'
-import config from '../config.json'
 
 export class SushiMenu extends Component {
 
@@ -54,7 +53,7 @@ export class SushiMenu extends Component {
 		})
 
 		var self = this;
-		axios.get(config.ONLINE_URL)
+		axios.get(process.env.REACT_APP_SERVER_URL)
 		.then(function (response) {
 			self.setState({allSushis: response.data})
 		})
@@ -107,11 +106,12 @@ export class SushiMenu extends Component {
 
 		// order array
 		// prepare to decreate store inventory
-		console.log("😈 current order >>\n=============================================================", ordersArray, "\n=============================================================")
+		console.log("😈 SushiMenu.js 😈 current order >>\n====================================", 
+			ordersArray, "\n====================================")
 
 		// seperate by NewCustomer & ReturnedCustomer
 		if (this.state.isNewCustomer) {
-			axios.post( config.ONLINE_URL + 'newCustomer', {
+			axios.post( process.env.REACT_APP_SERVER_URL + 'newCustomer', {
 				customerName: this.state.customerName,
 				customerEmail: this.state.customerEmail,
 				tableNumber: this.state.tableNumber,
@@ -127,9 +127,7 @@ export class SushiMenu extends Component {
 			})
 		} else {
 
-			// returned customer
-			// !!! check this method
-			axios.post( config.ONLINE_URL + 'updateCustomerOrder?email=' + this.state.customerEmail, {
+			axios.post( process.env.REACT_APP_SERVER_URL + 'updateCustomerOrder?email=' + this.state.customerEmail, {
 				customerName: this.state.customerName,
 				tableNumber: this.state.tableNumber,
 				checkInTime: new Date(),
@@ -164,92 +162,103 @@ export class SushiMenu extends Component {
 	handleSendEmail() {
 		// handle send email
 		console.log("====================== send email ==========================")
+		axios.get(process.env.REACT_APP_SERVER_URL + "sendEmail?email="+this.state.customerEmail)
+			.then(function (response) {
+				console.log("email send")
+			})
+			.catch(function (err) {
+				console.log(err)
+			})
 	}
 
-render(){
-	return (
-		<div>
-		<div className="customerInfo">
-		{
-			(this.state.isNewCustomer) ?
-			<h2><span role="img" aria-label="Clapping Hands">👏</span>
-			Welcome To Sushi4U: {this.state.customerName} - {this.state.customerEmail} | Table Number - {this.state.tableNumber}</h2> :
-			<h2><span role="img" aria-label="Red Heart">❤️</span>
-			Welcome Back: {this.state.customerName} - {this.state.customerEmail} | Table Number - {this.state.tableNumber}</h2>
-		}
-		</div>
-		<div className="leftMenu">
-		{this.state.allSushis.map(sushi => {
-
-			if (this.state.previousOrder !== undefined && this.state.previousOrder['_id'] !== undefined) {
-				let name = sushi.name
-				let value = this.getPreviousOrderForSushi(name)
-				sushi['previousOrder'] = value
-			} else {
-				sushi['previousOrder'] = 0
+	render(){
+		return (
+			<div>
+			<div className="customerInfo">
+			{
+				(this.state.isNewCustomer) ?
+				<h2><span role="img" aria-label="Clapping Hands">👏</span>
+				Welcome To Sushi4U: 
+				{this.state.customerName} - {this.state.customerEmail} | 
+				Table Number - {this.state.tableNumber}</h2> :
+				<h2><span role="img" aria-label="Red Heart">❤️</span>
+				Welcome Back: 
+				{this.state.customerName} - {this.state.customerEmail} | 
+				Table Number - {this.state.tableNumber}</h2>
 			}
+			</div>
+			<div className="leftMenu">
+			{this.state.allSushis.map(sushi => {
 
-			return (
-				<div className="leftMenu" key={sushi._id}>
-				<div className="sushiCell">
-				<h1>Name: {sushi.name}</h1>
-				<h1>Price: {sushi.price}</h1>
-				<h2>Category: {sushi.category}</h2>
-				<Counter name={sushi.name}
-				onSelectOrder={this.handleOrder}
-				previousOrder={sushi.previousOrder}/>
-				</div>
-				<div className="clearFloat"></div>
-				</div>
-				)
-		})}
-		</div>
-		<div className="rightMenu">
-		<div>
-		<h1>Current Order</h1>
-		{
-			Object.keys(this.state.allOrders).map((key, index) => {
-
-				if ( this.state.allOrders[key] !== 0 ) {
-					return (
-						<div key={index}>
-						<h1>{key} x {this.state.allOrders[key]}</h1>
-						</div>
-						)
+				if (this.state.previousOrder !== undefined && this.state.previousOrder['_id'] !== undefined) {
+					let name = sushi.name
+					let value = this.getPreviousOrderForSushi(name)
+					sushi['previousOrder'] = value
 				} else {
-					return null
+					sushi['previousOrder'] = 0
 				}
-			})
-		}
-		<button onClick={this.handleCheckOut}>Get Bill</button>
-		<h3>Here shows the bill</h3>
-		<div ref="billDiv" className="billHide">
-		<h1>{this.state.customerName}</h1>
-		<h1>{this.state.customerEmail}</h1>
-		<div>
-		{
-			Object.keys(this.state.allOrders).map((key, index) => {
 
-				if ( this.state.allOrders[key] !== 0 ) {
-					return (
-						<div key={index}>
-						<h1>{key} x {this.state.allOrders[key]}</h1>
-						</div>
-						)
-				} else {
-					return null
-				}
-			})
-		}
-		</div>
-		<h1>Total Bill: {this.state.totalBill}</h1>
-		<button onClick={this.handleSendEmail} >Pay By Email</button>
-		</div>
-		</div>
-		</div>
-		</div>
-		)
-}
+				return (
+					<div className="leftMenu" key={sushi._id}>
+					<div className="sushiCell">
+					<h1>Name: {sushi.name}</h1>
+					<h1>Price: {sushi.price}</h1>
+					<h2>Category: {sushi.category}</h2>
+					<Counter name={sushi.name}
+					onSelectOrder={this.handleOrder}
+					previousOrder={sushi.previousOrder}/>
+					</div>
+					<div className="clearFloat"></div>
+					</div>
+					)
+			})}
+			</div>
+			<div className="rightMenu">
+			<div>
+			<h1>Current Order</h1>
+			{
+				Object.keys(this.state.allOrders).map((key, index) => {
+
+					if ( this.state.allOrders[key] !== 0 ) {
+						return (
+							<div key={index}>
+							<h1>{key} x {this.state.allOrders[key]}</h1>
+							</div>
+							)
+					} else {
+						return null
+					}
+				})
+			}
+			<button onClick={this.handleCheckOut}>Get Bill</button>
+			<h3>Here shows the bill</h3>
+			<div ref="billDiv" className="billHide">
+			<h1>{this.state.customerName}</h1>
+			<h1>{this.state.customerEmail}</h1>
+			<div>
+			{
+				Object.keys(this.state.allOrders).map((key, index) => {
+
+					if ( this.state.allOrders[key] !== 0 ) {
+						return (
+							<div key={index}>
+							<h1>{key} x {this.state.allOrders[key]}</h1>
+							</div>
+							)
+					} else {
+						return null
+					}
+				})
+			}
+			</div>
+			<h1>Total Bill: {this.state.totalBill}</h1>
+			<button onClick={this.handleSendEmail} >Pay By Email</button>
+			</div>
+			</div>
+			</div>
+			</div>
+			)
+	}
 
 }
 

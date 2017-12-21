@@ -3,7 +3,6 @@
 
 import React, { Component}  from 'react'
 import axios from 'axios'
-import config from '../config.json'
 
 export class LoginPage extends Component {
   constructor(props) {
@@ -47,19 +46,23 @@ export class LoginPage extends Component {
     })
 */
 
-    // server GET request with query
-    var self = this
-    axios.get(config.ONLINE_URL + 'customer',{
-      params:{
-        email: self.state.email
-      }
-    })
-    .then(function (response) {
-      self.props.handleLogin(self.state.name, self.state.email,self.state.tableNumber, response.data[0])  
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
+    if (this.state.name !== "" && this.state.email !== "") {
+    	// server GET request with query
+	    var self = this
+	    axios.get(process.env.REACT_APP_SERVER_URL + 'customer',{
+	      params:{
+	        email: self.state.email
+	      }
+	    })
+	    .then(function (response) {
+	      self.props.handleLogin(self.state.name, self.state.email,self.state.tableNumber, response.data[0])  
+	    })
+	    .catch(function (error) {
+	      console.log(error);
+	    })
+    } else {
+    	alert("Please Enter Your Name and Email")
+    }
   }
 
   render() {
