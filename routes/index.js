@@ -107,6 +107,14 @@ module.exports = function(app){
 })
 
   app.get('/sendEmail',function(req,res){
+    console.log("===================================================================================")
+    var orders = JSON.parse(req.query.order)
+    var orderSection = ''
+    for (order in orders){
+      // console.log(order);
+      // console.log(orders[order]);
+      orderSection = orderSection + `<h2>${order} : ${orders[order]}</h2>`
+    }
     var targetEmail = req.query.email
     var transporter = nodemailer.createTransport({
           service: 'gmail',
@@ -120,14 +128,15 @@ module.exports = function(app){
         to : targetEmail,
         subject : "Sushi4u e-bill",
         text : "Sushi4u e-bill",
-        html: "<h1>Welcome to Sushi4u, here is your e-bill</h1>"
+        html: `<h1>Welcome to Sushi4u, here is your e-bill</h1></br>${orderSection}</br><h1>Total Bill : ${req.query.totalBill}</h1></hr><button>e-Pay</button>`
     }
+    console.log('😃  😃  😃 mailOptions:\n', mailOptions);
     transporter.sendMail(mailOptions, function(error, response){
         if(error){
             console.log(error);
             res.end("error");
         } else {
-            console.log("Message sent: " + response.message);
+            console.log("===========================================\nMessage sent: " + response);
             res.end("sent");
         }
     })

@@ -24,6 +24,7 @@ export class AddSushiForm extends Component {
 		}
 
 	handleAddName(event){
+		console.log(event.target.value);
 		this.setState({ name : event.target.value })
 	}
 

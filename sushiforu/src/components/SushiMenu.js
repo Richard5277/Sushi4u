@@ -20,13 +20,20 @@ export class SushiMenu extends Component {
 			tableNumber:0,
 			customerEmail: "",
 			isNewCustomer: true,
-			previousOrder:{}
+			previousOrder:{},
+			categories:{
+				appetizer:[],
+				roll:[],
+				dish:[],
+				other:[]
+			}
 		}
 		this.handleOrder = this.handleOrder.bind(this)
 		this.handleCheckOut = this.handleCheckOut.bind(this)
 		this.getPriceForSushi = this.getPriceForSushi.bind(this)
 		this.getPreviousOrderForSushi = this.getPreviousOrderForSushi.bind(this)
 		this.handleSendEmail = this.handleSendEmail.bind(this)
+		this.handleSortItems = this.handleSortItems.bind(this)
 	}
 
 	componentWillMount() {
@@ -55,7 +62,9 @@ export class SushiMenu extends Component {
 		var self = this;
 		axios.get(process.env.REACT_APP_SERVER_URL)
 		.then(function (response) {
-			self.setState({allSushis: response.data})
+			self.setState({allSushis: response.data}, () => {
+				self.handleSortItems()
+			})
 		})
 		.catch(function (error) {
 			console.log(error);
@@ -80,6 +89,53 @@ export class SushiMenu extends Component {
 				// console.log("you haven't place your order yet >> " + order)
 			}
 		}
+	}
+
+	handleSortItems = () => {
+		console.log("handle sorting items >> ", this.state.allSushis.length);
+		var itemsCounter = 0
+		var tempCategories = {
+				appetizer:[],
+				roll:[],
+				dish:[],
+				other:[]
+			}
+		this.state.allSushis.forEach( key => {
+			console.log(key.category)
+			switch (key.category) {
+				case 'appetizer':
+				tempCategories.appetizer.push(key)
+				itemsCounter ++
+				if (itemsCounter === this.state.allSushis.length) {
+					console.log("all done");
+				}
+				break;
+				case 'roll':
+				tempCategories.roll.push(key)
+				itemsCounter ++
+				if (itemsCounter === this.state.allSushis.length) {
+					console.log("all done");
+				}
+				break;
+				case 'dish':
+				tempCategories.dish.push(key)
+				itemsCounter ++
+				if (itemsCounter === this.state.allSushis.length) {
+					console.log("all done");
+				}
+				break;
+				default:
+				tempCategories.other.push(key)
+				itemsCounter ++
+				if (itemsCounter === this.state.allSushis.length) {
+					console.log("all done");
+				}
+				break;
+			}
+		})
+		this.setState({ categories : tempCategories }, () => {
+			console.log('done sorting\n', this.state.categories)	
+		})
 	}
 
 	handleCheckOut = () => {
@@ -161,14 +217,15 @@ export class SushiMenu extends Component {
 
 	handleSendEmail() {
 		// handle send email
-		console.log("====================== send email ==========================")
-		axios.get(process.env.REACT_APP_SERVER_URL + "sendEmail?email="+this.state.customerEmail)
-			.then(function (response) {
-				console.log("email send")
-			})
-			.catch(function (err) {
-				console.log(err)
-			})
+		console.log("current over >>", this.state.allOrders);
+		axios.get(process.env.REACT_APP_SERVER_URL + "sendEmail?email=" + this.state.customerEmail + "&order=" + JSON.stringify(this.state.allOrders) + "&totalBill=" + this.state.totalBill)
+		// axios.get(process.env.REACT_APP_SERVER_URL + "sendEmail?email=" + this.state.customerEmail)
+		.then(function (response) {
+			console.log("email send")
+		})
+		.catch(function (err) {
+			console.log(err)
+		})
 	}
 
 	render(){
@@ -212,6 +269,16 @@ export class SushiMenu extends Component {
 					</div>
 					)
 			})}
+			<div ref="appetizerSection">
+				<h1>Appetizer</h1>
+			</div>
+			<div ref="rollSection">
+				<h1>Roll</h1>
+			</div>
+			<div ref="dishSection">
+				<h1>Dish</h1>
+			</div>
+
 			</div>
 			<div className="rightMenu">
 			<div>
